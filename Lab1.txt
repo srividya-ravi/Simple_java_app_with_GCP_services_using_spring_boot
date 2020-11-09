@@ -1,0 +1,152 @@
+LAB 1 (Sample GCP PROJECT ID : qwiklabs-gcp-02-21dca47e4ec7)
+we will learn how to perform the following tasks:
+
+Configure Cloud Shell to run a multi-part Java application locally
+
+Use Apache Maven to launch Java applications in Cloud Shell
+
+Use curl and the Cloud Shell web preview to test connectivity to web applications running locally in Cloud Shell
+------------------------------------------------------------------------------------
+CLOUD SHELL :
+
+Task 0. Lab Setup
+
+How to start your lab and sign in to the Console
+1.Click the Start Lab button. If you need to pay for the lab, a pop-up opens for you to select your payment method.
+
+2.Copy the username, and then click Open Google Console. The lab spins up resources, and then opens another tab that shows the Choose an account page.
+
+3.On the Choose an account page, click Use Another Account
+
+4.The Sign in page opens. Enter the username & password.
+5.Click through the subsequent pages:
+
+Accept the terms and conditions.
+Do not add recovery options or two-factor authentication (because this is a temporary account).
+Do not sign up for free trials.
+After a few moments, the GCP console opens in this tab.
+
+Now,the project dashboard appears.
+
+--------------------Open cloud shell--------------
+//Cloud Shell is a command-line environment running in the Google cloud. This Debian-based virtual machine is loaded with all the development tools you need (such as docker, gcloud, and kubectl) and provides a persistent 5GB home directory.
+
+1.In the upper-right corner of the screen, click Activate Cloud Shell ( d258c43ee8321ba.png) to open Cloud Shell.
+
+2.Click Start Cloud Shell.
+After a moment of provisioning, a prompt appears:
+
+3.Run the following commands to view your preset account and project. When you use gcloud to create resources, this is where they are stored.
+gcloud config list account
+gcloud config list project
+
+4.Look for an assigned zone .
+
+5.Run the following command to set your zone. Substitute your assigned zone for [YOUR_ZONE] if you have one. Otherwise, use a zone close to you for low latency.
+
+gcloud config set compute/zone [YOUR_ZONE]
+
+6.Run the following command to see all variables set.
+
+gcloud config list
+
+7.Click on Boost Cloud Shell after that you will see Cloud Shell boosted .
+
+-------------------------------Launch Google Cloud Shell Code Editor-------------------------------------------
+
+Once you activate the Google Cloud Shell, click the Open editor button to open the Cloud Shell Code Editor.
+
+-----------------------------------------Task 1. Bootstrap the application----------------------------------------------
+In this task, we will clone the source repository for the demo application .
+
+1)A frontend application (guestbook-frontend) that manages the user interface presented in a web browser
+2)A backend service application (guestbook-service) that processes the data and manages the messaging and database interfaces
+
+-------Clone the demo application---
+Clone the demo application, run the following command:
+
+cd ~/
+git clone https://github.com/saturnism/spring-cloud-gcp-guestbook.git
+
+-------Run the backend locally---
+To run, test, and use the backend locally,
+
+1.Make a copy of the initial version of the backend application (guestbook-service).
+
+cp -a ~/spring-cloud-gcp-guestbook/1-bootstrap/guestbook-service \
+  ~/guestbook-service
+
+2.Run the backend application.
+
+cd ~/guestbook-service
+./mvnw -q spring-boot:run -Dserver.port=8081
+
+3.Open a new Cloud Shell session tab to test the backend application by clicking the plus (+) icon to the right of the title tab for the initial Cloud Shell session.
+This action opens a second Cloud Shell console to the same virtual machine.
+
+4.While the backend application (guestbook-service) is still running, test the service by running :
+
+curl http://localhost:8081/guestbookMessages
+
+5.Post a new message.
+
+curl -XPOST -H "content-type: application/json" \
+  -d '{"name": "Ray", "message": "Hello"}' \
+  http://localhost:8081/guestbookMessages
+
+6.List all the messages.
+
+curl http://localhost:8081/guestbookMessages
+
+-------Run the frontend locally---------
+To run the frontend locally,
+
+1.Make a copy of the initial version of the frontend application (guestbook-frontend).
+
+cp -a ~/spring-cloud-gcp-guestbook/1-bootstrap/guestbook-frontend \
+  ~/guestbook-frontend
+
+2.Run the frontend application.
+The frontend web application launches on port 8080.
+
+cd ~/guestbook-frontend
+./mvnw -q spring-boot:run
+
+--------------------------------------------------Task 2. Test the guestbook application-----------------------------------
+In this task, you test the demo application. The demo application is a simple Java application composed of a microservices backend, and a frontend consuming it. You extend this simple application in later labs to leverage various GCP services. You eventually deploy it to the cloud, using both App Engine and Kubernetes Engine.
+
+----------Access the frontend application through the Cloud Shell web preview--------------
+To access and use the frontend application through the web preview, perform the following steps:
+
+1.Click Web Preview.
+2.Select Preview on port 8080 to access the application on port 8080.
+A new browser tab displays the connection to the frontend application.
+3.type your name.
+type a message.
+Post.
+The messages are listed below the message input section.
+
+---------Use Cloud Shell to test the backend service----
+To use Cloud Shell to test the backend service,
+
+1.Open a third Cloud Shell tab.
+
+2.In the new shell tab, list all the messages that you added through a call to the backend guestbook-service API.
+
+curl -s http://localhost:8081/guestbookMessages
+
+3.Use jq to parse the JSON return text.
+For example, the following command prints out only the messages:
+
+curl -s http://localhost:8081/guestbookMessages \
+  | jq -r '._embedded.guestbookMessages[] | {name: .name, message: .message}'
+
+----------------------LAB DONE :) ----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
