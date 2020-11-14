@@ -1,5 +1,5 @@
-LAB 1 (Sample GCP PROJECT ID : qwiklabs-gcp-02-21dca47e4ec7)
-we will learn how to perform the following tasks:
+LAB 1 (Sample GCP PROJECT ID : qwiklabs-gcp-xx-xxxxxxxxxxxx)
+How to perform the following tasks:
 
 Configure Cloud Shell to run a multi-part Java application locally
 
@@ -11,30 +11,26 @@ CLOUD SHELL :
 
 Task 0. Lab Setup
 
-How to start your lab and sign in to the Console
-1.Click the Start Lab button. If you need to pay for the lab, a pop-up opens for you to select your payment method.
+How to sign in to the Console
 
-2.Copy the username, and then click Open Google Console. The lab spins up resources, and then opens another tab that shows the Choose an account page.
+1.Copy the username, and then click Open Google Console. The lab spins up resources, and then opens another tab that shows the Choose an account page.
 
-3.On the Choose an account page, click Use Another Account
+2.On the Choose an account page, click Use Another Account
 
-4.The Sign in page opens. Enter the username & password.
-5.Click through the subsequent pages:
+3.The Sign in page opens. Enter the username & password.
+4.Click through the subsequent pages:
 
 Accept the terms and conditions.
-Do not add recovery options or two-factor authentication (because this is a temporary account).
-Do not sign up for free trials.
 After a few moments, the GCP console opens in this tab.
 
 Now,the project dashboard appears.
 
 --------------------Open cloud shell--------------
-//Cloud Shell is a command-line environment running in the Google cloud. This Debian-based virtual machine is loaded with all the development tools you need (such as docker, gcloud, and kubectl) and provides a persistent 5GB home directory.
+//Cloud Shell is a command-line environment running in the Google cloud. This Debian-based virtual machine is loaded with all the development tools you need (such as docker, gcloud, and kubectl) .
 
-1.In the upper-right corner of the screen, click Activate Cloud Shell ( d258c43ee8321ba.png) to open Cloud Shell.
+1 click Activate Cloud Shell to open Cloud Shell.
 
 2.Click Start Cloud Shell.
-After a moment of provisioning, a prompt appears:
 
 3.Run the following commands to view your preset account and project. When you use gcloud to create resources, this is where they are stored.
 gcloud config list account
@@ -113,7 +109,6 @@ cd ~/guestbook-frontend
 ./mvnw -q spring-boot:run
 
 --------------------------------------------------Task 2. Test the guestbook application-----------------------------------
-In this task, you test the demo application. The demo application is a simple Java application composed of a microservices backend, and a frontend consuming it. You extend this simple application in later labs to leverage various GCP services. You eventually deploy it to the cloud, using both App Engine and Kubernetes Engine.
 
 ----------Access the frontend application through the Cloud Shell web preview--------------
 To access and use the frontend application through the web preview, perform the following steps:
